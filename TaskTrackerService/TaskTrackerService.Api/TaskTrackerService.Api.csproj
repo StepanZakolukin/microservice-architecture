@@ -21,4 +21,9 @@
       <Folder Include="Controllers\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\TaskTrackerService.Dal\TaskTrackerService.Dal.csproj" />
+      <ProjectReference Include="..\TaskTrackerService.Logic\TaskTrackerService.Logic.csproj" />
+    </ItemGroup>
+
 </Project>
