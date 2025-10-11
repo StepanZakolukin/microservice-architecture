@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTrackerService.Api", "TaskTrackerService.Api\TaskTrackerService.Api.csproj", "{02A76BFC-A18D-42D1-BA28-6578D7CA7937}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TaskTrackerService", "TaskTrackerService", "{4EA2F6BD-8BC1-4DE2-9361-DD0BE6132305}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTrackerService.Logic", "TaskTrackerService.Logic\TaskTrackerService.Logic.csproj", "{F10D96D1-8B23-45DD-940F-D0C60BB5C75E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTrackerService.Dal", "TaskTrackerService.Dal\TaskTrackerService.Dal.csproj", "{7458E814-130B-442C-ACEA-F06429789A24}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{02A76BFC-A18D-42D1-BA28-6578D7CA7937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02A76BFC-A18D-42D1-BA28-6578D7CA7937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02A76BFC-A18D-42D1-BA28-6578D7CA7937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02A76BFC-A18D-42D1-BA28-6578D7CA7937}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10D96D1-8B23-45DD-940F-D0C60BB5C75E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10D96D1-8B23-45DD-940F-D0C60BB5C75E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10D96D1-8B23-45DD-940F-D0C60BB5C75E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10D96D1-8B23-45DD-940F-D0C60BB5C75E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7458E814-130B-442C-ACEA-F06429789A24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7458E814-130B-442C-ACEA-F06429789A24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7458E814-130B-442C-ACEA-F06429789A24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7458E814-130B-442C-ACEA-F06429789A24}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02A76BFC-A18D-42D1-BA28-6578D7CA7937} = {4EA2F6BD-8BC1-4DE2-9361-DD0BE6132305}
+		{F10D96D1-8B23-45DD-940F-D0C60BB5C75E} = {4EA2F6BD-8BC1-4DE2-9361-DD0BE6132305}
+		{7458E814-130B-442C-ACEA-F06429789A24} = {4EA2F6BD-8BC1-4DE2-9361-DD0BE6132305}
+	EndGlobalSection
+EndGlobal
