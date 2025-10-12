@@ -8,9 +8,10 @@ public class ColumnConfiguration : IEntityTypeConfiguration<ColumnDal>
 {
     public void Configure(EntityTypeBuilder<ColumnDal> builder)
     {
-        builder.ToTable("column");
-        builder.HasOne(column => column.Tasks)
-            .WithMany()
+        builder.ToTable("Column");
+        builder.HasMany(column => column.Tasks)
+            .WithOne()
+            .HasForeignKey(task => task.ColumnId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

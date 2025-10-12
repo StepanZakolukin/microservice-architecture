@@ -1,4 +1,8 @@
+using System.Reflection;
+using Core;
+using TaskTrackerService.Api.Services;
 using TaskTrackerService.Dal;
+using TaskTrackerService.Logic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,21 +11,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services
-    .AddOpenApi()
-    .AddDal(builder.Configuration);
+    .AddLogic()
+    .AddCore(builder.Host)
+    .AddNotifications()
+    .AddDal(builder.Configuration)
+    .AddOpenApi(Assembly.GetExecutingAssembly(), AppContext.BaseDirectory);;
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseOpenApi();
 }
 
+app.UseNotifications();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

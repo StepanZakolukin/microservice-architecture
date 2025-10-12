@@ -8,8 +8,8 @@ public class TaskDal : BaseDalModel<Guid>
     public required Guid ColumnId { get; set; }
     public required int SequenceNumber { get; set; }
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-    public ICollection<TaskExecutorDal> Executors { get; init; } = new List<TaskExecutorDal>();
-    public ICollection<SubtaskDal> Subtasks { get; init; } = new List<SubtaskDal>();
+    public ICollection<TaskExecutorDal> Executors { get; init; } = [];
+    public ICollection<SubtaskDal> Subtasks { get; init; } = [];
     
     public TaskDal()
     {

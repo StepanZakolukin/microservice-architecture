@@ -8,9 +8,10 @@ public class BoardConfiguration : IEntityTypeConfiguration<BoardDal>
 {
     public void Configure(EntityTypeBuilder<BoardDal> builder)
     {
-        builder.ToTable("board");
-        builder.HasOne(project => project.Columns)
-            .WithMany()
+        builder.ToTable("Board");
+        builder.HasMany(board => board.Columns)
+            .WithOne()
+            .HasForeignKey(column => column.BoardId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

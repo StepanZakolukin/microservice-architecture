@@ -8,6 +8,6 @@ public class TaskExecutorConfiguration : IEntityTypeConfiguration<TaskExecutorDa
 {
     public void Configure(EntityTypeBuilder<TaskExecutorDal> builder)
     {
-        builder.ToTable("task_executor");
+        builder.ToTable("TaskExecutor");
     }
 }

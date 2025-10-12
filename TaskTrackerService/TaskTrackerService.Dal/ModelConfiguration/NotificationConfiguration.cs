@@ -8,6 +8,6 @@ public class NotificationConfiguration : IEntityTypeConfiguration<NotificationDa
 {
     public void Configure(EntityTypeBuilder<NotificationDal> builder)
     {
-        builder.ToTable("notification");
+        builder.ToTable("Notification");
     }
 }
