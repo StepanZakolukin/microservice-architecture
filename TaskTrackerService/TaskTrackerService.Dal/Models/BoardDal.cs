@@ -4,7 +4,7 @@ public class BoardDal : BaseDalModel<Guid>
 {
     public required string Name { get; set; }
     public required Guid TeamId { get; set; }
-    public ICollection<ColumnDal> Columns { get; init; } = new List<ColumnDal>();
+    public ICollection<ColumnDal> Columns { get; init; } = [];
 
     public BoardDal()
     {

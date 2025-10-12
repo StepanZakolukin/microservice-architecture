@@ -8,12 +8,14 @@ public class TaskConfiguration : IEntityTypeConfiguration<TaskDal>
 {
     public void Configure(EntityTypeBuilder<TaskDal> builder)
     {
-        builder.ToTable("task");
-        builder.HasOne(card => card.Executors)
-            .WithMany()
+        builder.ToTable("Task");
+        builder.HasMany(task => task.Executors)
+            .WithOne()
+            .HasForeignKey(executor => executor.TaskId)
             .OnDelete(DeleteBehavior.Cascade);
-        builder.HasOne(card => card.Subtasks)
-            .WithMany()
+        builder.HasMany(task => task.Subtasks)
+            .WithOne()
+            .HasForeignKey(subtask => subtask.TaskId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

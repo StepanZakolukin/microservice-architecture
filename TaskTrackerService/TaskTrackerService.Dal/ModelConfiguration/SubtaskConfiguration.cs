@@ -8,6 +8,6 @@ public class SubtaskConfiguration : IEntityTypeConfiguration<SubtaskDal>
 {
     public void Configure(EntityTypeBuilder<SubtaskDal> builder)
     {
-        builder.ToTable("subtask");
+        builder.ToTable("Subtask");
     }
 }
