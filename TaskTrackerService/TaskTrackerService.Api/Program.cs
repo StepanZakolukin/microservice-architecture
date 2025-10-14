@@ -17,7 +17,9 @@ builder.Services
     .AddCore(builder.Host)
     .AddDal(builder.Configuration)
     .AddOpenApi(Assembly.GetExecutingAssembly(), AppContext.BaseDirectory);;
-builder.Services.AddScoped<IUserContext, UserContext>();
+builder.Services
+    .AddScoped<IUserContext, UserContext>()
+    .AddHttpContextAccessor();
 
 var app = builder.Build();
 

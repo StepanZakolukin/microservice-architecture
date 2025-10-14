@@ -7,7 +7,7 @@ public static class UserConnectionLibSetup
 {
     public static IServiceCollection AddUserConnectionLib(this IServiceCollection services)
     {
-        services.AddScoped<IUserConnection>();
+        services.AddScoped<IUserConnection, UserConnection>();
         
         return services;
     }
