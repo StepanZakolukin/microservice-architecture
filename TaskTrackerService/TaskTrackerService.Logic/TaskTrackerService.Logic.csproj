@@ -15,10 +15,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Libs\Core\Core.csproj" />
       <ProjectReference Include="..\TaskTrackerService.Dal\TaskTrackerService.Dal.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Board\" />
+      <ProjectReference Include="..\СonnectionLib.UserService\СonnectionLib.UserService.csproj" />
     </ItemGroup>
 
 </Project>

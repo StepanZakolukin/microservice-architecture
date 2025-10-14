@@ -16,8 +16,7 @@ public static class DalSetup
         services
             .AddScoped<IColumnRepository, ColumnRepository>()
             .AddScoped<ITaskRepository, TaskRepository>()
-            .AddScoped<IPriorityRepository, PriorityRepository>()
-            .AddScoped<ITeamRepository, TeamRepository>();
+            .AddScoped<IPriorityRepository, PriorityRepository>();
         
         return services;
     }

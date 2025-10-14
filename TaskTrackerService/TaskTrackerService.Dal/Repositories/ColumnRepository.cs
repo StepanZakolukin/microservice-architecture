@@ -4,7 +4,7 @@ using TaskTrackerService.Dal.Models;
 
 namespace TaskTrackerService.Dal.Repositories;
 
-public class ColumnRepository : IColumnRepository
+internal class ColumnRepository : IColumnRepository
 {
     private readonly ServiceDbContext _dbContext;
 
@@ -15,10 +15,9 @@ public class ColumnRepository : IColumnRepository
 
     public async Task<ColumnDal?> GetColumnAsync(Guid columnId, CancellationToken cancellationToken)
     {
-        IQueryable<ColumnDal> columns = _dbContext.Columns;
-        return await columns
-            .Where(column => column.Id == columnId)
+        return await _dbContext.Columns
             .Include(column => column.Tasks)
+            .Where(column => column.Id == columnId)
             .FirstOrDefaultAsync(cancellationToken);
     }
 

@@ -2,5 +2,5 @@
 
 public abstract class BaseDalModel<TKey>
 {
-    public TKey Id { get; init; }
+    public TKey Id { get; protected init; }
 }

@@ -4,18 +4,17 @@ using TaskTrackerService.Dal.Models;
 
 namespace TaskTrackerService.Dal.ModelConfiguration;
 
-public class BoardConfiguration : IEntityTypeConfiguration<BoardDal>
+internal class BoardConfiguration : IEntityTypeConfiguration<BoardDal>
 {
     public void Configure(EntityTypeBuilder<BoardDal> builder)
     {
         builder.ToTable("Board");
         builder.HasMany(board => board.Columns)
-            .WithOne()
+            .WithOne(column => column.Board)
             .HasForeignKey(column => column.BoardId)
             .OnDelete(DeleteBehavior.Cascade);
-        builder.HasOne(board => board.Team)
-            .WithOne(team => team.Board)
-            .HasForeignKey<BoardDal>(board => board.TeamId)
+        builder.HasMany(board => board.Editors)
+            .WithOne(editor => editor.Board)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

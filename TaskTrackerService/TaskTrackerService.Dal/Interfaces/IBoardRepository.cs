@@ -7,6 +7,7 @@ public interface IBoardRepository
     Task AddAsync(BoardDal board, CancellationToken cancellationToken);
     Task SaveChangesAsync(CancellationToken cancellationToken);
     void Update(BoardDal board);
-    Task<BoardDal> GetBoardAsync(Guid id, CancellationToken cancellationToken);
+    Task<BoardDal?> GetBoardAsync(Guid id, CancellationToken cancellationToken);
     void Delete(BoardDal board);
+    Task<ICollection<BoardDal>> GetBoardsAsync(Guid userId, CancellationToken cancellationToken);
 }

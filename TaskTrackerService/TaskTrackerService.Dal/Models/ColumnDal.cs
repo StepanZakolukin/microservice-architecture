@@ -2,23 +2,51 @@
 
 public class ColumnDal : BaseDalModel<Guid>
 {
-    public required string Title { get; set; }
-    public required int Number { get; set; }
-    public required Guid BoardId { get; init; }
-    private List<TaskDal> _tasks;
-    public IEnumerable<TaskDal> Tasks => _tasks;
+    public ColumnDal()
+    {
+        Id = Guid.NewGuid();
+    }
     
-    public int Count => _tasks.Count;
+    public required string Title { get; set; }
+    public int Number { get; internal set; }
+    public Guid BoardId { get; private set; }
+    
+    private readonly List<TaskDal> _tasks;
+
+    public IEnumerable<TaskDal> Tasks
+    {
+        get => _tasks;
+        init
+        {
+            _tasks = value.OrderBy(task => task.Number).ToList();
+        }
+    }
+    
+    public int TaskCount => _tasks.Count;
+
+    private readonly BoardDal _board;
+    public BoardDal Board
+    {
+        get => _board;
+        init
+        {
+            _board = value ??  throw new ArgumentException("Попытка присвоить пустое значение", nameof(value));
+            BoardId = value.Id;
+        }
+    }
 
     public void AddTask(TaskDal task, int position = 0)
     {
-        _tasks = _tasks.OrderBy(currentTask => currentTask.Number).ToList();
+        if (position < 0) throw new ArgumentException("Должен быть больше 0", nameof(position));
+        
+        task.Column = this;
         _tasks.Insert(position, task);
         RestoreTaskNumbering();
     }
 
     public void RemoveTask(TaskDal task)
     {
+        task.Column = null!;
         _tasks.Remove(task);
         RestoreTaskNumbering();
     }
@@ -27,10 +55,5 @@ public class ColumnDal : BaseDalModel<Guid>
     {
         for (var i = 0; i < _tasks.Count; i++)
             _tasks[i].Number = i;
-    }
-    
-    public ColumnDal()
-    {
-        Id = Guid.NewGuid();
     }
 }

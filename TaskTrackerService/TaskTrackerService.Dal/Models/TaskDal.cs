@@ -2,20 +2,42 @@
 
 public class TaskDal : BaseDalModel<Guid>
 {
+    public TaskDal()
+    {
+        Id = Guid.NewGuid();
+    }
+    
     public bool Completed { get; set; } = false;
     public required string Title { get; set; }
     public required string? Description { get; set; }
     public required Guid CreatorId { get; init; }
     public required DateTime? Deadline { get; set; }
-    public required Guid ColumnId { get; set; }
-    public int Number { get; set; } = 0;
-    public Guid PriorityId { get; set; } = Guid.Empty;
-    public required PriorityDal? Priority { get; set; }
+    public int Number { get; internal set; }
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-    
-    public TaskDal()
+    public Guid PriorityId { get; private set; } = Guid.Empty;
+
+    private PriorityDal? _priority;
+    public required PriorityDal? Priority
     {
-        Id = Guid.NewGuid();
+        get => _priority;
+        set
+        {
+            _priority = value;
+            PriorityId = value?.Id ?? Guid.Empty;
+        }
+    }
+    
+    public Guid ColumnId { get; private set; }
+
+    private ColumnDal _column;
+    public ColumnDal Column
+    {
+        get => _column;
+        internal set
+        {
+            _column = value;
+            ColumnId = value?.Id ?? Guid.Empty;
+        }
     }
 
     public void Update(string title, string? description, bool completed, DateTime? deadline, PriorityDal? priority)

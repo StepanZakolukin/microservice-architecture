@@ -5,7 +5,6 @@ namespace TaskTrackerService.Dal;
 
 public class ServiceDbContext : DbContext
 {
-    public DbSet<TeamDal> Teams => Set<TeamDal>();
     public DbSet<TaskDal> Tasks => Set<TaskDal>();
     public DbSet<BoardDal> Boards => Set<BoardDal>();
     public DbSet<ColumnDal> Columns => Set<ColumnDal>();
@@ -19,7 +18,7 @@ public class ServiceDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         
-        modelBuilder.Entity<TeammateDal>();
+        modelBuilder.Entity<BoardEditorDal>();
         modelBuilder.HasDefaultSchema("task_tracker_service");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ServiceDbContext).Assembly);
     }

@@ -4,7 +4,7 @@ using TaskTrackerService.Dal.Models;
 
 namespace TaskTrackerService.Dal.Repositories;
 
-public class TaskRepository : ITaskRepository
+internal class TaskRepository : ITaskRepository
 {
     private readonly ServiceDbContext _dbContext;
 
@@ -30,9 +30,9 @@ public class TaskRepository : ITaskRepository
 
     public async Task<TaskDal?> GetTaskAsync(Guid taskId, CancellationToken cancellationToken)
     {
-        IQueryable<TaskDal> tasks = _dbContext.Tasks;
-        return await tasks.Where(task => task.Id == taskId)
+        return await _dbContext.Tasks
             .Include(task => task.Priority)
+            .Where(task => task.Id == taskId)
             .FirstOrDefaultAsync(cancellationToken);
     }
 }
