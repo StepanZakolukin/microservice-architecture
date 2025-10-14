@@ -13,9 +13,9 @@ builder.Services.AddControllers();
 builder.Services
     .AddLogic()
     .AddCore(builder.Host)
-    .AddNotifications()
     .AddDal(builder.Configuration)
     .AddOpenApi(Assembly.GetExecutingAssembly(), AppContext.BaseDirectory);;
+builder.Services.AddScoped<IUserContext, UserContext>();
 
 var app = builder.Build();
 
@@ -25,7 +25,6 @@ if (app.Environment.IsDevelopment())
     app.UseOpenApi();
 }
 
-app.UseNotifications();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

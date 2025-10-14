@@ -13,5 +13,9 @@ public class BoardConfiguration : IEntityTypeConfiguration<BoardDal>
             .WithOne()
             .HasForeignKey(column => column.BoardId)
             .OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(board => board.Team)
+            .WithOne(team => team.Board)
+            .HasForeignKey<BoardDal>(board => board.TeamId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

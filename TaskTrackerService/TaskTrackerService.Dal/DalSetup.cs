@@ -12,8 +12,12 @@ public static class DalSetup
     {
         services.AddDbContext<ServiceDbContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-        
-        services.AddScoped<INotificationRepository, NotificationRepository>();
+
+        services
+            .AddScoped<IColumnRepository, ColumnRepository>()
+            .AddScoped<ITaskRepository, TaskRepository>()
+            .AddScoped<IPriorityRepository, PriorityRepository>()
+            .AddScoped<ITeamRepository, TeamRepository>();
         
         return services;
     }
