@@ -4,7 +4,7 @@ using TaskTrackerService.Dal.Models;
 
 namespace TaskTrackerService.Dal.ModelConfiguration;
 
-public class PriorityConfiguration : IEntityTypeConfiguration<PriorityDal>
+internal class PriorityConfiguration : IEntityTypeConfiguration<PriorityDal>
 {
     public void Configure(EntityTypeBuilder<PriorityDal> builder)
     {

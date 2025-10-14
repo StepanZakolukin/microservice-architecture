@@ -26,10 +26,7 @@
         <ProjectReference Include="..\..\Libs\Core\Core.csproj" />
         <ProjectReference Include="..\TaskTrackerService.Dal\TaskTrackerService.Dal.csproj" />
         <ProjectReference Include="..\TaskTrackerService.Logic\TaskTrackerService.Logic.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="Controllers\Task\Responce\" />
+        <ProjectReference Include="..\СonnectionLib.UserService\СonnectionLib.UserService.csproj" />
     </ItemGroup>
 
 </Project>

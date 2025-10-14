@@ -4,7 +4,7 @@ using TaskTrackerService.Dal.Models;
 
 namespace TaskTrackerService.Dal.ModelConfiguration;
 
-public class TaskConfiguration : IEntityTypeConfiguration<TaskDal>
+internal class TaskConfiguration : IEntityTypeConfiguration<TaskDal>
 {
     public void Configure(EntityTypeBuilder<TaskDal> builder)
     {

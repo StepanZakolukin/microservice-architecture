@@ -1,6 +1,4 @@
-﻿using TaskTrackerService.Api.Controllers.Task.Cammon;
-
-namespace TaskTrackerService.Api.Controllers.Task.Request;
+﻿namespace TaskTrackerService.Api.Controllers.Task.Request;
 
 public record UpdateTaskRequest
 {

@@ -3,7 +3,7 @@ using TaskTrackerService.Dal.Models;
 
 namespace TaskTrackerService.Dal.Repositories;
 
-public class PriorityRepository : IPriorityRepository
+internal class PriorityRepository : IPriorityRepository
 {
     private readonly ServiceDbContext _dbContext;
 
