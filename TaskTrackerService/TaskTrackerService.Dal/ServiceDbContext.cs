@@ -5,9 +5,11 @@ namespace TaskTrackerService.Dal;
 
 public class ServiceDbContext : DbContext
 {
+    public DbSet<TeamDal> Teams => Set<TeamDal>();
     public DbSet<TaskDal> Tasks => Set<TaskDal>();
     public DbSet<BoardDal> Boards => Set<BoardDal>();
-    public DbSet<NotificationDal> Notifications => Set<NotificationDal>();
+    public DbSet<ColumnDal> Columns => Set<ColumnDal>();
+    public DbSet<PriorityDal> Priorities => Set<PriorityDal>();
 
     public ServiceDbContext(DbContextOptions<ServiceDbContext> options) : base(options)
     {
@@ -16,10 +18,8 @@ public class ServiceDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        modelBuilder.Entity<ColumnDal>();
-        modelBuilder.Entity<SubtaskDal>();
-        modelBuilder.Entity<TaskExecutorDal>();
+        
+        modelBuilder.Entity<TeammateDal>();
         modelBuilder.HasDefaultSchema("task_tracker_service");
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ServiceDbContext).Assembly);
     }

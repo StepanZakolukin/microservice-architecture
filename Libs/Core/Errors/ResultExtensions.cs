@@ -43,7 +43,7 @@ public static class ResultExtensions
     public static IActionResult ToActionResult(this Result result)
     {
         if (result.IsSuccess)
-            return new OkResult();
+            return new NoContentResult();
 
         var error = result.Errors.OfType<AppError>().FirstOrDefault()
                     ?? result.Errors.FirstOrDefault() as AppError

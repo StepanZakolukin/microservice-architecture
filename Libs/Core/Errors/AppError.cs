@@ -11,11 +11,10 @@ public class AppError : Error
         Code = code;
         Metadata["Error"] = this;
     }
-    
-    public AppError WithMessage(string message) => new AppError(this.Code, message);
 
-    public static readonly AppError Unauthorized = new("Unauthorized", "Аутентификация не удалась");
-    public static readonly AppError Validation = new("Validation", "Ошибка валидации данных");
-    public static readonly AppError Conflict   = new("Conflict", "Объект уже существует");
-    public static readonly AppError NotFound   = new("NotFound", "Объект не найден");
+    public static AppError Forbidden(string message = "Доступ запрещен") => new("Forbidden", message);
+    public static AppError Unauthorized(string message = "Аутентификация не удалась") => new("Unauthorized", message);
+    public static AppError Validation(string message = "Ошибка валидации данных") => new("Validation", message);
+    public static AppError Conflict(string message = "Объект уже существует") => new("Conflict", message);
+    public static AppError NotFound(string message = "Объект не найден") => new("NotFound", message);
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using TaskTrackerService.Logic.Notification;
+using TaskTrackerService.Logic.Priority;
+using TaskTrackerService.Logic.Task;
 
 namespace TaskTrackerService.Logic;
 
@@ -7,7 +8,8 @@ public static class LogicSetup
 {
     public static IServiceCollection AddLogic(this IServiceCollection services)
     {
-        return services
-            .AddScoped<INotificationManager, NotificationManager>();
+        services.AddScoped<ITaskManager, TaskManager>();
+        
+        return services;
     }  
 }
