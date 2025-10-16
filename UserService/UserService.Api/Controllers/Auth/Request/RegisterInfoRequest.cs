@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UserService.Api.Controllers.User.Request;
+namespace UserService.Api.Controllers.Auth.Request;
 
 public record RegisterInfoRequest
 {

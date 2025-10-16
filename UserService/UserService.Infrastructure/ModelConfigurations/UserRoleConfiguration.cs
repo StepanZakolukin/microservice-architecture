@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using UserService.Domain.Models;
+using UserService.Domain.Entities;
 
 namespace UserService.Infrastructure.ModelConfigurations;
 

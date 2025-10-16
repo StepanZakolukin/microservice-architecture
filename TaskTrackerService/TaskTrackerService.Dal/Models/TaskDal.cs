@@ -14,31 +14,13 @@ public class TaskDal : BaseDalModel<Guid>
     public required DateTime? Deadline { get; set; }
     public int Number { get; internal set; }
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-    public Guid PriorityId { get; private set; } = Guid.Empty;
+    public Guid PriorityId => Priority?.Id ?? Guid.Empty;
 
-    private PriorityDal? _priority;
-    public required PriorityDal? Priority
-    {
-        get => _priority;
-        set
-        {
-            _priority = value;
-            PriorityId = value?.Id ?? Guid.Empty;
-        }
-    }
-    
-    public Guid ColumnId { get; private set; }
+    public required PriorityDal? Priority { get; set; }
 
-    private ColumnDal _column;
-    public ColumnDal Column
-    {
-        get => _column;
-        internal set
-        {
-            _column = value;
-            ColumnId = value?.Id ?? Guid.Empty;
-        }
-    }
+    public Guid ColumnId => Column?.Id ?? Guid.Empty;
+
+    public ColumnDal Column { get; internal set; } //TODO: поработать над целостностью данных
 
     public void Update(string title, string? description, bool completed, DateTime? deadline, PriorityDal? priority)
     {
@@ -47,6 +29,5 @@ public class TaskDal : BaseDalModel<Guid>
         Completed = completed;
         Deadline = deadline;
         Priority = priority;
-        PriorityId = priority?.Id ?? Guid.Empty;
     }
 }

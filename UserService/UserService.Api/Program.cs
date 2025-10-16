@@ -1,5 +1,8 @@
+using ConnectionLib.TaskTrackerService;
 using Core;
 using UserService.Api.DependencyInjection;
+using UserService.Api.Services;
+using UserService.Api.Services.Interfaces;
 using UserService.Application;
 using UserService.Infrastructure;
 
@@ -14,7 +17,12 @@ builder.Services
     .AddCore(builder.Host)
     .AddDal(builder.Configuration)
     .AddLogic()
+    .AddTaskTrackerConnectionLib()
     .AddOpenApi(typeof(Program).Assembly, AppContext.BaseDirectory);
+
+builder.Services
+    .AddScoped<IUserContext, UserContext>()
+    .AddHttpContextAccessor();
 
 var app = builder.Build();
 

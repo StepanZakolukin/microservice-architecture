@@ -9,7 +9,6 @@ public class ColumnDal : BaseDalModel<Guid>
     
     public required string Title { get; set; }
     public int Number { get; internal set; }
-    public Guid BoardId { get; private set; }
     
     private readonly List<TaskDal> _tasks;
 
@@ -24,15 +23,13 @@ public class ColumnDal : BaseDalModel<Guid>
     
     public int TaskCount => _tasks.Count;
 
+    public Guid BoardId => Board.Id;
+    
     private readonly BoardDal _board;
     public BoardDal Board
     {
         get => _board;
-        init
-        {
-            _board = value ??  throw new ArgumentException("Попытка присвоить пустое значение", nameof(value));
-            BoardId = value.Id;
-        }
+        init => _board = value ??  throw new ArgumentException("Попытка присвоить пустое значение", nameof(value));
     }
 
     public void AddTask(TaskDal task, int position = 0)

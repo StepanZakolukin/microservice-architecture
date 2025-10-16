@@ -1,7 +1,7 @@
-﻿using IdentityService.Api.Services.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using UserService.Application.Interfaces;
-using UserService.Application.Services;
+﻿using Microsoft.Extensions.DependencyInjection;
+using UserService.Application.Auth.Interfaces;
+using UserService.Application.Auth.Services;
+using UserService.Application.Notification;
 
 namespace UserService.Application;
 
@@ -12,7 +12,8 @@ public static class ApplicationSetup
         services
             .AddScoped<IAuthService, AuthService>()
             .AddScoped<IAccessTokenGenerator, AccessTokenGenerator>()
-            .AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
+            .AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>()
+            .AddScoped<INotificationManager, NotificationManager>();
         
         return services;
     }

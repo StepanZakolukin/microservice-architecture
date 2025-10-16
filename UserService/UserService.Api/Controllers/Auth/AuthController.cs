@@ -1,13 +1,13 @@
 using System.Security.Claims;
 using Core.Errors;
-using UserService.Application.Command;
-using UserService.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using UserService.Api.Controllers.User.Request;
-using UserService.Application.Dto;
+using UserService.Api.Controllers.Auth.Request;
+using UserService.Application.Auth.Command;
+using UserService.Application.Auth.Dto;
+using UserService.Application.Auth.Interfaces;
 
-namespace UserService.Api.Controllers.User;
+namespace UserService.Api.Controllers.Auth;
 
 [ApiController]
 [Route("/api/auth")]
