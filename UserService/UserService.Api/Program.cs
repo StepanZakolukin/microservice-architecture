@@ -1,9 +1,7 @@
-using System.Reflection;
 using Core;
-using TaskTrackerService.Api.Services;
-using TaskTrackerService.Dal;
-using TaskTrackerService.Logic;
-using СonnectionLib.UserService;
+using UserService.Api.DependencyInjection;
+using UserService.Application;
+using UserService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,26 +10,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services
-    .AddAuthentication(builder.Configuration)
-    .AddUserConnectionLib()
-    .AddLogic()
+    .AddIdentityServices(builder.Configuration)
     .AddCore(builder.Host)
     .AddDal(builder.Configuration)
-    .AddOpenApi(Assembly.GetExecutingAssembly(), AppContext.BaseDirectory);;
-builder.Services
-    .AddScoped<IUserContext, UserContext>()
-    .AddHttpContextAccessor();
+    .AddLogic()
+    .AddOpenApi(typeof(Program).Assembly, AppContext.BaseDirectory);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
 
 app.Run();
