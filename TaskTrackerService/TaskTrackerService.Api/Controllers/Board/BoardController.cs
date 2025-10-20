@@ -232,4 +232,25 @@ public class BoardController : ControllerBase
 
         return result.ToActionResult();
     }
+
+    [HttpPost("{board-id:guid}/columns/{column-id:guid}/move")]
+    public async Task<IActionResult> MoveColumnAsync(
+        [FromRoute(Name = "board-id")] Guid boardId, 
+        [FromRoute(Name = "column-id")] Guid columnId,
+        [FromBody] MoveColumnRequest dto,
+        [FromServices] IUserContext userContext,
+        CancellationToken cancellationToken)
+    {
+        var command = new MoveColumnLogic
+        {
+            ColumnId = columnId,
+            NewNumber = dto.NewNumber,
+            BoardId = boardId,
+            AuthenticatedUserId = userContext.UserId
+        };
+
+        var result = await _boardManager.MoveColumnAsync(command, cancellationToken);
+        
+        return result.ToActionResult();
+    }
 }

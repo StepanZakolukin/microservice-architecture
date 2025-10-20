@@ -17,6 +17,7 @@ builder.Services
     .AddCore(builder.Host)
     .AddDal(builder.Configuration)
     .AddLogic()
+    .AddNotifications()
     .AddTaskTrackerConnectionLib()
     .AddOpenApi(typeof(Program).Assembly, AppContext.BaseDirectory);
 
@@ -33,6 +34,7 @@ if (app.Environment.IsDevelopment())
     app.UseOpenApi();
 }
 
+app.UseNotifications();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

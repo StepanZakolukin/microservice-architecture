@@ -72,7 +72,6 @@ public class BoardManager : IBoardManager
             return Result.Fail(AppError.Forbidden());
 
         board.Name = dto.Name;
-        _boardRepository.Update(board);
         await _boardRepository.SaveChangesAsync(cancellationToken);
         
         return Result.Ok();
@@ -115,7 +114,6 @@ public class BoardManager : IBoardManager
         var user = userResult.Value;
 
         var editor = board.AddEditor(user.Id, user.FirstName, user.LastName);
-        _boardRepository.Update(board);
         await _boardRepository.SaveChangesAsync(cancellationToken);
         
         return Result.Ok(editor.Id);
@@ -132,7 +130,6 @@ public class BoardManager : IBoardManager
             return Result.Fail(AppError.Forbidden());
         
         board.RemoveEditor(dto.UserId);
-        _boardRepository.Update(board);
         await _boardRepository.SaveChangesAsync(cancellationToken);
         
         return Result.Ok();
@@ -149,7 +146,6 @@ public class BoardManager : IBoardManager
             return Result.Fail(AppError.Forbidden());
 
         var column = board.AddColumn(dto.Title);
-        _boardRepository.Update(board);
         await _boardRepository.SaveChangesAsync(cancellationToken);
         
         return Result.Ok(column.Id);
@@ -166,7 +162,6 @@ public class BoardManager : IBoardManager
             return Result.Fail(AppError.Forbidden());
 
         board.RemoveColumn(dto.ColumnId);
-        _boardRepository.Update(board);
         await _boardRepository.SaveChangesAsync(cancellationToken);
         
         return Result.Ok();
@@ -187,7 +182,24 @@ public class BoardManager : IBoardManager
             return Result.Fail(AppError.NotFound("Колонка не найдена"));
         
         column.Title = dto.Title;
-        _boardRepository.Update(board);
+        await _boardRepository.SaveChangesAsync(cancellationToken);
+        
+        return Result.Ok();
+    }
+
+    public async Task<Result> MoveColumnAsync(MoveColumnLogic dto, CancellationToken cancellationToken)
+    {
+        var board = await _boardRepository.GetBoardAsync(dto.BoardId, cancellationToken);
+        
+        if (board is null)
+            return Result.Fail(AppError.NotFound("Доска не найдена"));
+        
+        if (!board.CheckEditorExists(dto.AuthenticatedUserId))
+            return Result.Fail(AppError.Forbidden());
+
+        if (!board.TryMoveColumn(dto.ColumnId, dto.NewNumber))
+            return Result.Fail(AppError.Validation());
+        
         await _boardRepository.SaveChangesAsync(cancellationToken);
         
         return Result.Ok();

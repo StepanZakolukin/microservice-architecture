@@ -16,4 +16,5 @@ public interface IBoardManager
     Task<Result<Guid>> AddColumnAsync(AddColumnLogic dto, CancellationToken cancellationToken);
     Task<Result> RemoveColumnAsync(RemoveColumnLogic dto, CancellationToken cancellationToken);
     Task<Result> UpdateColumnAsync(UpdateColumnLogic dto, CancellationToken cancellationToken);
+    Task<Result> MoveColumnAsync(MoveColumnLogic dto, CancellationToken cancellationToken);
 }

@@ -9,7 +9,7 @@ using UserService.Domain.Interfaces;
 
 namespace UserService.Application.Auth.Services;
 
-internal class AuthService : IAuthService
+internal class AuthManager : IAuthService
 {
     private readonly UserManager<User> _userManager;
     private readonly SignInManager<User> _signInManager;
@@ -17,7 +17,7 @@ internal class AuthService : IAuthService
     private readonly IRefreshTokenGenerator _refreshTokenGenerator;
     private readonly IRefreshTokenRepository _refreshTokenRepository;
     
-    public AuthService(UserManager<User> userManager, IRefreshTokenGenerator refreshTokenGenerator, IAccessTokenGenerator accessTokenGenerator, SignInManager<User> signInManager, IRefreshTokenRepository refreshTokenRepository)
+    public AuthManager(UserManager<User> userManager, IRefreshTokenGenerator refreshTokenGenerator, IAccessTokenGenerator accessTokenGenerator, SignInManager<User> signInManager, IRefreshTokenRepository refreshTokenRepository)
     {
         _userManager = userManager;
         _refreshTokenGenerator =  refreshTokenGenerator;
