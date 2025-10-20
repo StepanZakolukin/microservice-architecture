@@ -12,7 +12,7 @@ using UserService.Infrastructure;
 namespace UserService.Infrastructure.Migrations
 {
     [DbContext(typeof(ServiceDbContext))]
-    [Migration("20251016082720_Initialization")]
+    [Migration("20251020133458_Initialization")]
     partial class Initialization
     {
         /// <inheritdoc />
@@ -129,7 +129,33 @@ namespace UserService.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", "user_service");
                 });
 
-            modelBuilder.Entity("UserService.Domain.Models.RefreshToken", b =>
+            modelBuilder.Entity("UserService.Domain.Entities.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("ReadIt")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notification", "user_service");
+                });
+
+            modelBuilder.Entity("UserService.Domain.Entities.RefreshToken", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -155,7 +181,7 @@ namespace UserService.Infrastructure.Migrations
                     b.ToTable("RefreshToken", "user_service");
                 });
 
-            modelBuilder.Entity("UserService.Domain.Models.User", b =>
+            modelBuilder.Entity("UserService.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,7 +257,7 @@ namespace UserService.Infrastructure.Migrations
                     b.ToTable("User", "user_service");
                 });
 
-            modelBuilder.Entity("UserService.Domain.Models.UserRole", b =>
+            modelBuilder.Entity("UserService.Domain.Entities.UserRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -260,7 +286,7 @@ namespace UserService.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("UserService.Domain.Models.UserRole", null)
+                    b.HasOne("UserService.Domain.Entities.UserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -269,7 +295,7 @@ namespace UserService.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("UserService.Domain.Models.User", null)
+                    b.HasOne("UserService.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -278,7 +304,7 @@ namespace UserService.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("UserService.Domain.Models.User", null)
+                    b.HasOne("UserService.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -287,13 +313,13 @@ namespace UserService.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("UserService.Domain.Models.UserRole", null)
+                    b.HasOne("UserService.Domain.Entities.UserRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("UserService.Domain.Models.User", null)
+                    b.HasOne("UserService.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -302,11 +328,27 @@ namespace UserService.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("UserService.Domain.Models.User", null)
+                    b.HasOne("UserService.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("UserService.Domain.Entities.Notification", b =>
+                {
+                    b.HasOne("UserService.Domain.Entities.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserService.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Notifications");
                 });
 #pragma warning restore 612, 618
         }

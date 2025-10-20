@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using UserService.Application.Auth.Interfaces;
+using UserService.Application.InterfaceRepositories;
 using UserService.Domain.Entities;
-using UserService.Domain.Interfaces;
 
 namespace UserService.Application.Auth;
 

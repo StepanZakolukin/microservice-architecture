@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using UserService.Application.Auth.Command;
 using UserService.Application.Auth.Dto;
 using UserService.Application.Auth.Interfaces;
-using UserService.Domain.Interfaces;
+using UserService.Application.InterfaceRepositories;
 
 namespace UserService.Application.Auth;
 
@@ -38,7 +38,7 @@ internal class AuthManager : IAuthManager
         
         var result = await _userManager.CreateAsync(user, info.Password);
         if (!result.Succeeded)
-            return Result.Fail<RegisterInfoResponse>(AppError.Validation(result.Errors.First().Description));
+            return Result.Fail(AppError.Validation(result.Errors.First().Description));
         
         var refreshToken = await _refreshTokenGenerator.GenerateAsync(user.Id, cancellationToken);
         var claims = await _signInManager.CreateUserPrincipalAsync(user);

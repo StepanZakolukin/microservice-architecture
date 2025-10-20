@@ -143,6 +143,29 @@ namespace UserService.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notification",
+                schema: "user_service",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Created = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: false),
+                    ReadIt = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notification_User_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "user_service",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 schema: "user_service",
                 columns: table => new
@@ -217,6 +240,12 @@ namespace UserService.Infrastructure.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notification_UserId",
+                schema: "user_service",
+                table: "Notification",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RefreshToken_Token",
                 schema: "user_service",
                 table: "RefreshToken",
@@ -264,6 +293,10 @@ namespace UserService.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens",
+                schema: "user_service");
+
+            migrationBuilder.DropTable(
+                name: "Notification",
                 schema: "user_service");
 
             migrationBuilder.DropTable(

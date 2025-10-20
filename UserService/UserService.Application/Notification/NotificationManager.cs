@@ -1,7 +1,7 @@
 ﻿using ConnectionLib.TaskTrackerService.Board;
 using Core.Errors;
 using FluentResults;
-using UserService.Domain.Interfaces;
+using UserService.Application.InterfaceRepositories;
 
 namespace UserService.Application.Notification;
 

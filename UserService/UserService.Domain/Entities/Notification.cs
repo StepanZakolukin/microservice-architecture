@@ -5,7 +5,7 @@ namespace UserService.Domain.Entities;
 
 public class Notification : BaseEntity<Guid>
 {
-    public Guid UserId => User.Id;
+    public Guid UserId { get; init; }
     public User User { get;  internal init; } //TODO: Поработать над целостностью
 
     public DateTime Created { get; private set; } = DateTime.UtcNow;

@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UserService.Domain.Entities;
-using UserService.Domain.Interfaces;
+using UserService.Application.InterfaceRepositories;
 
 namespace UserService.Infrastructure.Repositories;
 
@@ -13,12 +12,7 @@ internal class UserRepository : IUserRepository
         _dbContext = dbContext;
     }
 
-    public void Update(User user)
-    {
-        _dbContext.Users.Update(user);
-    }
-
-    public async Task<User?> GetUserAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task<Domain.Entities.User?> GetUserAsync(Guid userId, CancellationToken cancellationToken)
     {
         return await _dbContext.Users
             .Where(user => user.Id == userId)
@@ -29,5 +23,10 @@ internal class UserRepository : IUserRepository
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         await _dbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<IEnumerable<Domain.Entities.User>> GetAllUsers(CancellationToken cancellationToken)
+    {
+        return await _dbContext.Users.ToListAsync(cancellationToken);
     }
 }

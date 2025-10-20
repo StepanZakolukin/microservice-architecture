@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UserService.Domain.Interfaces;
+using UserService.Application.InterfaceRepositories;
 using UserService.Infrastructure.Repositories;
 
 namespace UserService.Infrastructure;
@@ -12,8 +12,10 @@ public static class InfrastructureSetup
     {
         services.AddDbContext<ServiceDbContext>(options =>
             options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-        
-        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+
+        services
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         
         return services;
     }
