@@ -3,7 +3,7 @@ using UserService.Application.Auth.Interfaces;
 using UserService.Domain.Entities;
 using UserService.Domain.Interfaces;
 
-namespace UserService.Application.Auth.Services;
+namespace UserService.Application.Auth;
 
 internal class RefreshTokenGenerator : IRefreshTokenGenerator
 {

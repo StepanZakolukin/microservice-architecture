@@ -4,7 +4,7 @@ using UserService.Application.Auth.Dto;
 
 namespace UserService.Application.Auth.Interfaces;
 
-public interface IAuthService
+public interface IAuthManager
 {
     Task<Result<RegisterInfoResponse>> RegisterAsync(RegisterCommand command, CancellationToken cancellationToken);
 

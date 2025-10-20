@@ -13,11 +13,11 @@ namespace UserService.Api.Controllers.Auth;
 [Route("/api/auth")]
 public class AuthController : ControllerBase
 {
-    private readonly IAuthService _authService;
+    private readonly IAuthManager _authManager;
     
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthManager authManager)
     {
-        _authService = authService;
+        _authManager = authManager;
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public class AuthController : ControllerBase
             LastName = dto.LastName
         };
         
-        var result = await _authService.RegisterAsync(command, cancellationToken);
+        var result = await _authManager.RegisterAsync(command, cancellationToken);
         return result.ToActionResult();
     }
 
@@ -47,7 +47,7 @@ public class AuthController : ControllerBase
     [ProducesResponseType<LoginInfoResponse>(StatusCodes.Status200OK)]
     public async Task<IActionResult> LoginAsync([FromBody] LoginInfoRequest dto, CancellationToken cancellationToken)
     {
-        var loginResult = await _authService.LoginAsync(dto.Email, dto.Password, cancellationToken);
+        var loginResult = await _authManager.LoginAsync(dto.Email, dto.Password, cancellationToken);
         return loginResult.ToActionResult();
     }
 
@@ -59,7 +59,7 @@ public class AuthController : ControllerBase
     [ProducesResponseType<RegisterInfoResponse>(StatusCodes.Status200OK)]
     public async Task<IActionResult> RefreshAsync([FromBody] string refreshToken,  CancellationToken cancellationToken)
     {
-        var result = await _authService.RefreshTokenAsync(refreshToken, cancellationToken);
+        var result = await _authManager.RefreshTokenAsync(refreshToken, cancellationToken);
         return result.ToActionResult();
     }
 
@@ -72,7 +72,7 @@ public class AuthController : ControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> LogoutAsync([FromBody] string refreshToken, CancellationToken cancellationToken)
     {
-        var result = await _authService.LogoutAsync(refreshToken, cancellationToken);
+        var result = await _authManager.LogoutAsync(refreshToken, cancellationToken);
         return result.ToActionResult();
     }
 

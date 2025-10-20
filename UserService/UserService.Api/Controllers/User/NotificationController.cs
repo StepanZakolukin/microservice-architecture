@@ -5,7 +5,6 @@ using UserService.Api.Controllers.User.Request;
 using UserService.Api.Controllers.User.Response;
 using UserService.Api.Services.Interfaces;
 using UserService.Application.Notification;
-using UserService.Application.Notification.Command;
 using UserService.Domain.Entities;
 
 namespace UserService.Api.Controllers.User;
@@ -70,17 +69,13 @@ public class NotificationController : ControllerBase
         [FromBody] NotificationRequest notification,
         CancellationToken cancellationToken)
     {
-        var command = new CreateNotificationCommand
-        {
-            Text = notification.Text,
-            UserId = notification.UserId,
-            AuthenticatedUserId = userContext.UserId
-        };
-        
-        var result = await _notificationManager.CreateNotificationAsync(command, cancellationToken);
+        var result = await _notificationManager.CreateNotificationAsync(
+            notification.Text,
+            userId, userContext.UserId,
+            cancellationToken);
         
         await _notificationService.SendNotificationAsync(
-            $"{notification.UserId}",
+            $"{userId}",
             notification.Text,
             cancellationToken);
 

@@ -5,7 +5,7 @@ using Core.Auth;
 using Microsoft.IdentityModel.Tokens;
 using UserService.Application.Auth.Interfaces;
 
-namespace UserService.Application.Auth.Services;
+namespace UserService.Application.Auth;
 
 public class AccessTokenGenerator : IAccessTokenGenerator
 {

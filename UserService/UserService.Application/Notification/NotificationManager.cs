@@ -1,7 +1,6 @@
 ﻿using ConnectionLib.TaskTrackerService.Board;
 using Core.Errors;
 using FluentResults;
-using UserService.Application.Notification.Command;
 using UserService.Domain.Interfaces;
 
 namespace UserService.Application.Notification;
@@ -17,13 +16,17 @@ internal class NotificationManager : INotificationManager
         _boardConnection = boardConnection;
     }
 
-    public async Task<Result<Guid>> CreateNotificationAsync(CreateNotificationCommand command, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> CreateNotificationAsync(
+        string text,
+        Guid userId,
+        Guid authenticatedUserId,
+        CancellationToken cancellationToken)
     {
-        if (command.UserId != command.AuthenticatedUserId)
+        if (userId != authenticatedUserId)
         {
             var checkForSharedBoardsResult = await _boardConnection.CheckForSharedBoards(
-                command.UserId,
-                command.AuthenticatedUserId,
+                userId,
+                authenticatedUserId,
                 cancellationToken);
             if (checkForSharedBoardsResult.IsFailed)
                 return Result.Fail("Что то пошло не так, попробуйте повторить попытку");
@@ -31,11 +34,11 @@ internal class NotificationManager : INotificationManager
                 return Result.Fail(AppError.Forbidden());
         }
         
-        var user = await _userRepository.GetUserAsync(command.UserId, cancellationToken);
+        var user = await _userRepository.GetUserAsync(userId, cancellationToken);
         if (user is null)
             return Result.Fail(AppError.NotFound("Пользователь не найден."));
         
-        var notification = user.AddNotification(command.Text);
+        var notification = user.AddNotification(text);
         await _userRepository.SaveChangesAsync(cancellationToken);
         
         return Result.Ok(notification.Id);

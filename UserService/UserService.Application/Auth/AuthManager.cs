@@ -4,20 +4,23 @@ using Microsoft.AspNetCore.Identity;
 using UserService.Application.Auth.Command;
 using UserService.Application.Auth.Dto;
 using UserService.Application.Auth.Interfaces;
-using UserService.Domain.Entities;
 using UserService.Domain.Interfaces;
 
-namespace UserService.Application.Auth.Services;
+namespace UserService.Application.Auth;
 
-internal class AuthManager : IAuthService
+internal class AuthManager : IAuthManager
 {
-    private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
+    private readonly UserManager<Domain.Entities.User> _userManager;
+    private readonly SignInManager<Domain.Entities.User> _signInManager;
     private readonly IAccessTokenGenerator _accessTokenGenerator;
     private readonly IRefreshTokenGenerator _refreshTokenGenerator;
     private readonly IRefreshTokenRepository _refreshTokenRepository;
     
-    public AuthManager(UserManager<User> userManager, IRefreshTokenGenerator refreshTokenGenerator, IAccessTokenGenerator accessTokenGenerator, SignInManager<User> signInManager, IRefreshTokenRepository refreshTokenRepository)
+    public AuthManager(UserManager<Domain.Entities.User> userManager,
+        IRefreshTokenGenerator refreshTokenGenerator,
+        IAccessTokenGenerator accessTokenGenerator,
+        SignInManager<Domain.Entities.User> signInManager,
+        IRefreshTokenRepository refreshTokenRepository)
     {
         _userManager = userManager;
         _refreshTokenGenerator =  refreshTokenGenerator;
@@ -28,7 +31,7 @@ internal class AuthManager : IAuthService
 
     public async Task<Result<RegisterInfoResponse>> RegisterAsync(RegisterCommand info, CancellationToken cancellationToken)
     {
-        var user = new User
+        var user = new Domain.Entities.User
         {
             Email = info.Email, FirstName = info.FirstName, LastName = info.LastName, UserName = info.Email
         };
@@ -76,7 +79,7 @@ internal class AuthManager : IAuthService
         });
     }
 
-    private async Task<string> GenerateAccessToken(User user)
+    private async Task<string> GenerateAccessToken(Domain.Entities.User user)
     {
         var principal = await _signInManager.CreateUserPrincipalAsync(user);
         return _accessTokenGenerator.Generate(principal.Claims);

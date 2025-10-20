@@ -1,11 +1,10 @@
 ﻿using FluentResults;
-using UserService.Application.Notification.Command;
 
 namespace UserService.Application.Notification;
 
 public interface INotificationManager
 {
-    Task<Result<Guid>> CreateNotificationAsync(CreateNotificationCommand command, CancellationToken cancellationToken);
+    Task<Result<Guid>> CreateNotificationAsync(string text, Guid userId, Guid authenticatedUserId, CancellationToken cancellationToken);
     
     Task<Result> MarkAsReadAsync(Guid notificationId, CancellationToken cancellationToken);
     
