@@ -61,11 +61,12 @@ public class BoardDal : BaseDalModel<Guid>
 
     public bool TryMoveColumn(Guid columnId, int newNumber)
     {
-        if (Columns.FirstOrDefault(column => column.Id == columnId) is null)
-            throw new ArgumentException("Колонка с указанным id не найдена", nameof(columnId));
         if (newNumber < 0 || newNumber >= ColumnCount) return false;
+        var column = _columns.FirstOrDefault(column => column.Id == columnId);
+        if (!RemoveColumn(columnId)) return false;
 
-        throw new NotImplementedException();
+        _columns.Insert(newNumber, column!);
+        return true;
     }
 
     public BoardEditorDal AddEditor(Guid userId, string firstName, string lastName)
