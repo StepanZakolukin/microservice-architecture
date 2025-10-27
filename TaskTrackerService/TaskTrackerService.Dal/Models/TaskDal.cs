@@ -14,11 +14,11 @@ public class TaskDal : BaseDalModel<Guid>
     public required DateTime? Deadline { get; set; }
     public int Number { get; internal set; }
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
-    public Guid PriorityId => Priority?.Id ?? Guid.Empty;
+    public Guid PriorityId { get; set; }
 
     public required PriorityDal? Priority { get; set; }
 
-    public Guid ColumnId => Column?.Id ?? Guid.Empty;
+    public Guid ColumnId { get; set; }
 
     public ColumnDal Column { get; internal set; } //TODO: поработать над целостностью данных
 

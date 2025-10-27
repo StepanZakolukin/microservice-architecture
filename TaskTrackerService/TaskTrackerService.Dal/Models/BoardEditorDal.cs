@@ -24,7 +24,7 @@ public class BoardEditorDal : BaseDalModel<Guid>
         set => _lastName = value ?? throw new ArgumentNullException(nameof(value), $"Попытка установить пустое значение");
     }
 
-    public Guid BoardId => Board.Id;
+    public Guid BoardId { get; set; }
     
     private readonly BoardDal _boardDal;
 

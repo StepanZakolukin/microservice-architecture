@@ -4,5 +4,5 @@ namespace СonnectionLib.UserService.User;
 
 public interface IUserConnection
 {
-    public Task<Result<UserDto>> GetUserAsync(Guid userId, CancellationToken cancellationToken);
+    Task<Result<UserDto>> GetUserAsync(Guid userId, CancellationToken cancellationToken);
 }

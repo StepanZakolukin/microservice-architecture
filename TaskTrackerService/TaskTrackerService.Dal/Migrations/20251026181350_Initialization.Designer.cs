@@ -12,7 +12,7 @@ using TaskTrackerService.Dal;
 namespace TaskTrackerService.Dal.Migrations
 {
     [DbContext(typeof(ServiceDbContext))]
-    [Migration("20251016083156_Initialization")]
+    [Migration("20251026181350_Initialization")]
     partial class Initialization
     {
         /// <inheritdoc />

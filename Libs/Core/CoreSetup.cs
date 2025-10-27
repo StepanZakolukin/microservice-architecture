@@ -1,4 +1,5 @@
 ﻿using Core.CoreLogs;
+using Core.HttpLogic;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -9,7 +10,9 @@ public static class CoreSetup
 {
     public static IServiceCollection AddCore(this IServiceCollection services, IHostBuilder hostBuilder)
     {
-        services.AddLoggerServices();
+        services
+            .AddLoggerServices()
+            .AddHttpRequestService();
         
         hostBuilder.UseSerilog(
             (builderContext, logConfiguration) => logConfiguration.GetConfiguration(),

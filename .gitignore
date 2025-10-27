@@ -45,6 +45,7 @@ ScaffoldingReadMe.txt
 CodeCoverage/
 .idea
 *.DotSettings.user
+*.pfx
 
 # MSBuild Binary and Structured Log
 *.binlog

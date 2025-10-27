@@ -23,8 +23,8 @@ public class ColumnDal : BaseDalModel<Guid>
     
     public int TaskCount => _tasks.Count;
 
-    public Guid BoardId => Board.Id;
-    
+    public Guid BoardId { get; set; }
+
     private readonly BoardDal _board;
     public BoardDal Board
     {

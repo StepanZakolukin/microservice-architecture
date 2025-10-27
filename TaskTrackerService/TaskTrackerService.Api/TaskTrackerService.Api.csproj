@@ -27,7 +27,6 @@
         <ProjectReference Include="..\..\Libs\СonnectionLib.UserService\СonnectionLib.UserService.csproj" />
         <ProjectReference Include="..\TaskTrackerService.Dal\TaskTrackerService.Dal.csproj" />
         <ProjectReference Include="..\TaskTrackerService.Logic\TaskTrackerService.Logic.csproj" />
-        <ProjectReference Include="..\СonnectionLib.UserService\СonnectionLib.UserService.csproj" />
     </ItemGroup>
 
 </Project>
