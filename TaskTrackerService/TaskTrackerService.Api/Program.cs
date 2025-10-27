@@ -1,5 +1,8 @@
+using System.Net;
 using System.Reflection;
+using System.Security.Authentication;
 using Core;
+using Core.Traces.Middleware;
 using TaskTrackerService.Api.Services;
 using TaskTrackerService.Dal;
 using TaskTrackerService.Logic;
@@ -32,6 +35,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+app.UseTraceReaderMiddleware();
 app.MapControllers();
 
 app.Run();

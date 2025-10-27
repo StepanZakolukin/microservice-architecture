@@ -1,5 +1,7 @@
+using System.Security.Authentication;
 using ConnectionLib.TaskTrackerService;
 using Core;
+using Core.Traces.Middleware;
 using UserService.Api.DependencyInjection;
 using UserService.Api.Services;
 using UserService.Api.Services.Interfaces;
@@ -34,6 +36,7 @@ if (app.Environment.IsDevelopment())
     app.UseOpenApi();
 }
 
+app.UseTraceReaderMiddleware();
 app.UseNotifications();
 app.UseHttpsRedirection();
 app.UseAuthentication();

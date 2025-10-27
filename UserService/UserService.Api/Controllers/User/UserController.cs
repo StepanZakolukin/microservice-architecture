@@ -68,7 +68,7 @@ public class UserController : ControllerBase
     /// Получить пользователя по ID
     /// </summary>
     [HttpGet("{user-id:guid}")]
-    [ProducesResponseType<UserResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<UserDto>(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -76,18 +76,9 @@ public class UserController : ControllerBase
         [FromRoute(Name = "user-id")] Guid userId,
         [FromServices] IUserContext userContext)
     {
-        if (userId != userContext.UserId)
-            return Forbid();
-        
         var result = await _userManager.GetUserAsync(userId);
         
-        return result
-            .Map(user => new UserResponse 
-            {
-                Email = user.Email!,
-                LastName = user.LastName,
-                FirstName = user.FirstName,
-                CreateAt = user.CreateAt
-            }).ToActionResult();
+        return result.Map(user => new UserDto { LastName = user.LastName, FirstName = user.FirstName, Id = userId, })
+            .ToActionResult();
     }
 }
