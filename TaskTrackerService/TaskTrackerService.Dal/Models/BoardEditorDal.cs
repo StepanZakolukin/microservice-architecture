@@ -24,13 +24,17 @@ public class BoardEditorDal : BaseDalModel<Guid>
         set => _lastName = value ?? throw new ArgumentNullException(nameof(value), $"Попытка установить пустое значение");
     }
 
-    public Guid BoardId { get; set; }
+    public Guid BoardId { get; private set; }
     
     private readonly BoardDal _boardDal;
 
     public BoardDal Board
     {
         get => _boardDal;
-        internal init => _boardDal = value; //TODO: поработать над целостностью
+        internal init
+        {
+            _boardDal = value;
+            BoardId = value.Id;
+        }
     }
 }
